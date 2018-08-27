@@ -1,33 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Mensagem;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Validator;
 
 class MensagemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $mensagens = Mensagem::all();
-        return view('mensagem.list',['mensagens' => $mensagens]);
+        $listaMensagens = Mensagem::all();
+        return view('mensagem.list',['mensagens' => $listaMensagens]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('mensagem.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,51 +23,56 @@ class MensagemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = array(
+            'title.required' => 'É obrigatório um título',
+            'description.required' => 'É obrigatório uma descrição',
+            'author.required' => 'É obrigatório um autor',
+            );
+        $regras = array(
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'author' => 'required|string',
+            );
+        $validador = Validator::make($request->all(), $regras, $messages);
+        if ($validador->fails()){
+            return redirect('mensagens/create')
+            ->withErrors($validador)
+            ->withInput($request->all);
+        }
+        $obj_Mensagem = new Mensagem();
+        $obj_Mensagem->title = $request['title'];
+        $obj_Mensagem->description = $request['description'];
+        $obj_Mensagem->author = $request['author'];
+        $obj_Mensagem->save();
+        return redirect('/mensagens')->with('success', 'Mensagem criada com sucesso!');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Mensagem  $mensagem
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $mensagem = Mensagem::find($id);
-        return view('mensagem.show',['mensagem'=>$mensagem]);
+        $Mensagem = Mensagem::find($id);
+        return view('mensagem.show',['mensagens' => $Mensagem]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Mensagem  $mensagem
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mensagem $mensagem)
+    public function edit(Atividade $atividade)
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mensagem  $mensagem
+     * @param  \App\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensagem $mensagem)
+    public function update(Request $request, Atividade $atividade)
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mensagem  $mensagem
+     * @param  \App\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensagem $mensagem)
+    public function destroy(Atividade $atividade)
     {
         //
     }

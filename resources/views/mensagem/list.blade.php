@@ -1,12 +1,19 @@
 <h1>Lista de Mensagens</h1>
 <hr>
-@foreach($mensagens as $mensagem)
-	<h3>{{$mensagem->autor}}</h3>
-	<p><a href="/mensagem/{{$mensagem->id}}">{{$mensagem->titulo}}</a></p>
-	<p>{{$mensagem->texto}}</p>
+
+
+@if(\Session::has('success'))
+<div class="container">
+	<div class="alert alert-sucess">
+		{{\Session::get('success')}}
+	</div>
+</div>
+@endif
+
+@foreach($mensagens as $Mensagem)
+	<h3><p><a href="/mensagens/{{$Mensagem->id}}">{{$Mensagem->title}}</a></p></h3>
+	<p>{{$Mensagem->author}}</p>
+	<p>{{$Mensagem->description}}</p>
 	<br>
 @endforeach
 
-
-
-<!-- \Carbon\Carbon::parse($atividade->scheduledto)->format('d/m/Y h:m')  -->
