@@ -127,7 +127,7 @@ class AtividadeController extends Controller
 
         //executa as validações
         if ($validador->fails()) {
-            return redirect('atividades/$id/edit')
+            return redirect("atividades/$id/edit")
             ->withErrors($validador)
             ->withInput($request->all);
         }

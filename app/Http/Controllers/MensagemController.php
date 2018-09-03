@@ -48,13 +48,14 @@ class MensagemController extends Controller
     }
     public function show($id)
     {
-        $Mensagem = Mensagem::find($id);
-        return view('mensagem.show',['mensagens' => $Mensagem]);
+        $mensagem = Mensagem::find($id);
+        return view('mensagem.show',['mensagens' => $mensagem]);
     }
-    public function edit(Atividade $atividade)
+
+    public function edit($id)
     {
-        //
-    }
+        $obj_Mensagem = Mensagem::find($id);
+        return view('mensagem.edit',['mensagem' => $obj_Mensagem]);    }
     /**
      * Update the specified resource in storage.
      *
@@ -62,10 +63,40 @@ class MensagemController extends Controller
      * @param  \App\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Atividade $atividade)
+    public function update(Request $request,  $id)
     {
-        //
-    }
+        $messages = array(
+            'title.required' => 'É obrigatório um título para a mensagem',
+            'description.required' => 'É obrigatória uma descrição para a mensagem',
+            'author.required' => 'É obrigatório o cadastro de autor da mensagem',
+        );
+
+        //vetor com as especificações de validações
+        $regras = array(
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'author' => 'required|string',
+        );
+
+        //cria o objeto com as regras de validação
+        $validador = Validator::make($request->all(), $regras, $messages);
+
+        //executa as validações
+        if ($validador->fails()) {
+            return redirect("mensagens/$id/edit")
+            ->withErrors($validador)
+            ->withInput($request->all);
+        }
+
+        //se passou pelas validações, processa e salva no banco...
+        $obj_Mensagem= Mensagem::findOrFail($id);
+        $obj_Mensagem->title =       $request['title'];
+        $obj_Mensagem->description = $request['description'];
+        $obj_Mensagem->author = $request['author'];
+        $obj_Mensagem->save();
+
+        return redirect('/mensagens')->with('success', 'Mensagem alterada com sucesso!!');
+            }
     /**
      * Remove the specified resource from storage.
      *
