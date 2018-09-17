@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Atividade;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Validator;
+use \Illuminate\Support\Facades\Auth;
 
 class AtividadeController extends Controller
 {
@@ -14,10 +15,16 @@ class AtividadeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $listaAtividades = Atividade::all();
+    { 
+        if(Auth::check()){
+            $listaAtividades = Atividade::where('user_id', Auth::id())->get();
+        }else{
+            $listaAtividades = Atividade::all();
+        }
+
         return view('atividade.list',['atividades' => $listaAtividades]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -68,6 +75,7 @@ class AtividadeController extends Controller
         $obj_Atividade->title =       $request['title'];
         $obj_Atividade->description = $request['description'];
         $obj_Atividade->scheduledto = $request['scheduledto'];
+        $obj_Atividade->user_id     = Auth::id();
         $obj_Atividade->save();
 
         return redirect('/atividades')->with('success', 'Atividade criada com sucesso!!');
@@ -137,6 +145,7 @@ class AtividadeController extends Controller
         $obj_atividade->title =       $request['title'];
         $obj_atividade->description = $request['description'];
         $obj_atividade->scheduledto = $request['scheduledto'];
+        $obj_atividade->user_id     = Auth::id();
         $obj_atividade->save();
 
         return redirect('/atividades')->with('success', 'Atividade alterada com sucesso!!');
@@ -167,4 +176,5 @@ class AtividadeController extends Controller
         $obj_atividade->delete($id);
         return redirect('/atividades')->with('sucess','Atividade excluída com Sucesso!!');
     }
+
 }
