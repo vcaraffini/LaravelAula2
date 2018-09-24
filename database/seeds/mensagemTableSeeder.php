@@ -11,29 +11,19 @@ class mensagemTableSeeder extends Seeder
     public function run()
     {
         Mensagem::create([
-          'title'=>'bla',
-          'description'=>'bla',
-          'author'=>'bla'
+          'title' => 'ola 1',
+          'description' => 'teste',
+          'author' => 'caraffini',
+          'user_id' => 1,
+          'atividade_id' => 1
           ]);
+
         Mensagem::create([
-            'title'=>'bla',
-            'description'=>'bla',
-            'author'=>'bla'
-            ]);
-        Mensagem::create([
-            'title'=>'bla',
-            'description'=>'bla',
-            'author'=>'bla'
-            ]);
-        Mensagem::create([
-            'title'=>'bla',
-            'description'=>'bla',
-            'author'=>'bla'
-            ]);
-        Mensagem::create([
-            'title'=>'bla',
-            'description'=>'bla',
-            'author'=>'bla'
+          'title' => 'ola 1',
+          'description' => 'teste',
+          'author' => 'carafandowski',
+          'user_id' => 1,
+          'atividade_id' => 1
             ]);
     }
 }

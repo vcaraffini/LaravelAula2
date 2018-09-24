@@ -33,7 +33,8 @@ class AtividadeController extends Controller
      */
     public function create()
     {
-        return view('atividade.create');
+        $atividades = Atividade::all();
+        return view('mensagem.create',['atividades' => $atividades]);
     }
 
     /**
@@ -89,7 +90,7 @@ class AtividadeController extends Controller
      */
     public function show($id)
     {
-        $atividade = Atividade::find($id);
+        $atividade = Atividade::find($id)->with('mensagens')->get()->first();
         return view('atividade.show',['atividade' => $atividade]);
     }
 
