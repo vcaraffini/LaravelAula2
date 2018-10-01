@@ -4,12 +4,14 @@ use App\Mensagem;
 use App\Atividade;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Validator;
+use \Illuminate\Support\Facades\Auth;
+
 
 class MensagemController extends Controller
 {
     public function index()
     {
-        $listaMensagens = Mensagem::all();
+        $listaMensagens = Mensagem::paginate(3);
         return view('mensagem.list',['mensagens' => $listaMensagens]);
     }
     public function create()

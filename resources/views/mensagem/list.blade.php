@@ -25,6 +25,8 @@
 	<br>
 @endforeach
 
+  {{ $mensagens->links() }}
+
 <br>
 
 @auth
