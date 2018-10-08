@@ -1,3 +1,7 @@
+@extends('layouts.app') 
+
+@section('content')
+
 <h1>Formulário de Edição da Mensagem código {{$mensagem->id}}</h1>
 <hr>
 
@@ -23,4 +27,4 @@
 	<input type="submit" value="Salvar">
 </form>
 
-
+@endsection

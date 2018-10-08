@@ -34,7 +34,7 @@ class AtividadeController extends Controller
     public function create()
     {
         $atividades = Atividade::all();
-        return view('mensagem.create',['atividades' => $atividades]);
+        return view('atividade.create',['atividades' => $atividades]);
     }
 
     /**

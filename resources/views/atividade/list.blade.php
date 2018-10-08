@@ -1,3 +1,7 @@
+@extends('layouts.app') 
+
+@section('content')
+
 <h1>Lista de Atividades</h1>
 <hr>
 
@@ -30,4 +34,5 @@
   <p><a href="/atividades/create">Criar novo registro</a></p>
 @endauth
 
+@endsection
 <!-- \Carbon\Carbon::parse($atividade->scheduledto)->format('d/m/Y h:m')  -->

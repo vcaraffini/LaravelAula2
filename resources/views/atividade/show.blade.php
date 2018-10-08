@@ -1,3 +1,7 @@
+@extends('layouts.app') 
+
+@section('content')
+
 <h1>Atividades {{$atividade->id}}</h1>
 <hr>
 <h3><b>ID:</b> {{$atividade->id}}</h3>
@@ -31,6 +35,6 @@
     </tbody>
 </table>
 
-
+@endsection
 
 <!-- \Carbon\Carbon::parse($atividade->scheduledto)->format('d/m/Y h:m')  -->

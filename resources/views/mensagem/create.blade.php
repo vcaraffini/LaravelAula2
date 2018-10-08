@@ -1,3 +1,7 @@
+@extends('layouts.app') 
+
+@section('content')
+
 <h1>Formulário de Cadastro de Mensagens</h1>
 <hr>
 
@@ -29,3 +33,5 @@ Atividade: <select name='atividade_id'>
 
 <input type="submit" value="Salvar">
 </form>
+
+@endsection
